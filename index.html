@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>بوابة حي المدينة الرقمية</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -44,12 +46,56 @@
             padding-bottom: 90px;
         }
 
+        /* شاشة التحميل الترحيبية (Splash Screen) */
+        #splashScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--card-bg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        #splashScreen img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            animation: pulse 1.2s infinite;
+            box-shadow: 0 4px 15px rgba(43,57,144,0.15);
+        }
+
+        #splashScreen h2 {
+            color: var(--text-color);
+            font-size: 1.35rem;
+            font-weight: 800;
+        }
+
+        #splashScreen p {
+            color: var(--text-sub);
+            font-size: 0.85rem;
+            margin-top: 5px;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.06); }
+            100% { transform: scale(1); }
+        }
+
         .top-header {
             background: var(--header-bg);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 20px;
+            padding: 12px 20px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             position: sticky;
             top: 0;
@@ -59,26 +105,34 @@
         .logo-area {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+        }
+
+        .logo-area img {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+            border-radius: 50%;
         }
 
         .logo-area h2 {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             color: var(--text-color);
             font-weight: 800;
+            line-height: 1.2;
         }
 
         .header-actions {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
         .btn-theme {
             background: var(--input-bg);
             border: 1px solid var(--border-color);
-            font-size: 1.2rem;
-            padding: 5px 10px;
+            font-size: 1.1rem;
+            padding: 6px 10px;
             border-radius: 12px;
             cursor: pointer;
         }
@@ -87,9 +141,9 @@
             background: var(--input-bg);
             color: var(--text-color);
             border: 1px solid var(--border-color);
-            padding: 6px 14px;
+            padding: 6px 12px;
             border-radius: 15px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 700;
             cursor: pointer;
         }
@@ -238,6 +292,7 @@
             text-align: center;
             box-shadow: 0 4px 12px rgba(0,0,0,0.04);
             border: 1px solid var(--border-color);
+            cursor: pointer;
         }
 
         .icon-bg {
@@ -287,7 +342,7 @@
             font-size: 0.88rem;
             outline: none;
             background: var(--input-bg);
-            color: var(--text-sub);
+            color: var(--text-color);
         }
 
         .btn-geo {
@@ -501,9 +556,17 @@
 </head>
 <body>
 
+    <!-- شاشة التحميل الترحيبية (Splash Screen) -->
+    <div id="splashScreen">
+        <img src="logo.png" alt="شعار بوابة حي المدينة">
+        <h2>بوابة حي المدينة الرقمية</h2>
+        <p>جاري تحميل النظام الرقمي للحي...</p>
+    </div>
+
+    <!-- الهيدر العلوي باللوجو والاسم الجديد -->
     <header class="top-header">
         <div class="logo-area">
-            <span class="flag-icon">🇪🇬</span>
+            <img src="logo.png" alt="شعار بوابة حي المدينة">
             <h2>بوابة حي المدينة الرقمية</h2>
         </div>
         <div class="header-actions">
@@ -512,6 +575,7 @@
         </div>
     </header>
 
+    <!-- مودال تسجيل الدخول -->
     <div id="loginModal" class="modal-overlay" style="display: none;">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
@@ -527,6 +591,7 @@
         </div>
     </div>
 
+    <!-- مودال عن التطبيق -->
     <div id="aboutModal" class="modal-overlay" style="display: none;">
         <div class="modal-content">
             <span class="close-modal-about">&times;</span>
@@ -537,6 +602,7 @@
 
     <main class="container">
         
+        <!-- صفحة الرئيسية -->
         <section id="home-page" class="page-section active-page">
             <div class="search-box">
                 <input type="text" placeholder="🔍 نساعدك ازاي في حي المدينة؟">
@@ -586,288 +652,26 @@
             <section>
                 <h3 class="section-title">الخدمات المقترحة</h3>
                 <div class="services-grid">
-                    <a href="#report-form" class="service-card">
+                    <div class="service-card" onclick="switchTab('home-page'); document.getElementById('issueType').value='مشكلة في الطرق والرصف';">
                         <div class="icon-bg">🛣️</div>
                         <span>بلاغات الطرق</span>
-                    </a>
-                    <a href="#report-form" class="service-card">
+                    </div>
+                    <div class="service-card" onclick="switchTab('home-page'); document.getElementById('issueType').value='أعطال الكهرباء والإنارة';">
                         <div class="icon-bg">⚡</div>
                         <span>أعطال الكهرباء</span>
-                    </a>
-                    <a href="#report-form" class="service-card">
+                    </div>
+                    <div class="service-card" onclick="switchTab('home-page'); document.getElementById('issueType').value='أعطال شبكة المياه والصرف';">
                         <div class="icon-bg">💧</div>
                         <span>مياه وصرف</span>
-                    </a>
-                    <a href="#report-form" class="service-card">
+                    </div>
+                    <div class="service-card" onclick="switchTab('home-page'); document.getElementById('issueType').value='تراكم النظافة والمخلفات';">
                         <div class="icon-bg">🗑️</div>
                         <span>النظافة والمخلفات</span>
-                    </a>
+                    </div>
                 </div>
             </section>
 
             <section id="report-form" class="form-section">
                 <h3 class="section-title">📝 تقديم بلاغ جديد بالـ GPS</h3>
                 <form id="complaintForm">
-                    <div class="form-group">
-                        <label>الرقم القومي للمواطن</label>
-                        <input type="text" id="reporterNationalId" maxlength="14" placeholder="أدخل الرقم القومي (14 رقماً)" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>رقم الهاتف</label>
-                        <input type="tel" id="reporterPhone" placeholder="أدخل رقم الهاتف للتواصل" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>نوع المشكلة</label>
-                        <select id="issueType" required>
-                            <option value="">اختر نوع الخدمة...</option>
-                            <option value="مشكلة في الطرق والرصف">🛣️ مشكلة في الطرق والرصف</option>
-                            <option value="أعطال الكهرباء والإنارة">⚡ أعطال الكهرباء والإنارة</option>
-                            <option value="أعطال شبكة المياه والصرف">💧 أعطال شبكة المياه والصرف</option>
-                            <option value="تراكم النظافة والمخلفات">🗑️ تراكم النظافة والمخلفات</option>
-                            <option value="مشكلة أخرى عامة بالحي">⚠️ مشكلة أخرى عامة بالحي</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>وصف المشكلة والموقع بالتفصيل</label>
-                        <textarea id="issueDesc" rows="3" placeholder="اكتب العنوان أو اضغط زر تحديد الموقع بالأسفل..." required></textarea>
-                        <button type="button" id="getLocationBtn" class="btn-geo">📍 تحديد موقعي الحالي تلقائياً (GPS)</button>
-                    </div>
-
-                    <div class="form-group">
-                        <label>إرفاق صورة المشكلة 📸 (اختياري تماماً)</label>
-                        <input type="file" id="issueImg" accept="image/*">
-                    </div>
-
-                    <button type="submit" class="btn-primary">إرسال البلاغ الذكي 🚀</button>
-                </form>
-            </section>
-
-            <section id="my-reports">
-                <h3 class="section-title">📋 بلاغاتي (البلاغات النشطة بالحي)</h3>
-                <div id="cardsContainer" class="reports-grid"></div>
-            </section>
-        </section>
-
-        <section id="more-page" class="page-section">
-            <div class="more-banner">
-                <h3>أي خدمة؟</h3>
-                <p>وفر وقتك واستفيد من خدمات مصر الرقمية فى دقائق معدودة</p>
-            </div>
-
-            <div class="more-menu-card" id="aboutAppBtn">
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <span style="font-size: 1.3rem;">🛡️</span>
-                    <span>عن التطبيق</span>
-                </div>
-                <span>⚙️</span>
-            </div>
-
-            <div class="more-menu-card" id="loginMenuBtn">
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <span style="font-size: 1.3rem;">👤</span>
-                    <span>تسجيل الدخول</span>
-                </div>
-                <span style="font-size: 1.3rem; color: #2b3990;">➔</span>
-            </div>
-        </section>
-
-    </main>
-
-    <nav class="bottom-nav">
-        <a class="nav-item active" id="navHome" onclick="switchPage('home')">
-            <span>🏠</span>
-            <small>الرئيسية</small>
-        </a>
-        <a class="nav-item" id="navMore" onclick="switchPage('more')">
-            <span>⋯</span>
-            <small>المزيد</small>
-        </a>
-    </nav>
-
-    <script>
-        function switchPage(page) {
-            const homePage = document.getElementById('home-page');
-            const morePage = document.getElementById('more-page');
-            const navHome = document.getElementById('navHome');
-            const navMore = document.getElementById('navMore');
-
-            if(page === 'home') {
-                homePage.classList.add('active-page');
-                morePage.classList.remove('active-page');
-                navHome.classList.add('active');
-                navMore.classList.remove('active');
-                window.scrollTo(0, 0);
-            } else if(page === 'more') {
-                morePage.classList.add('active-page');
-                homePage.classList.remove('active-page');
-                navMore.classList.add('active');
-                navHome.classList.remove('active');
-                window.scrollTo(0, 0);
-            }
-        }
-
-        const themeToggleBtn = document.getElementById('themeToggle');
-        themeToggleBtn.addEventListener('click', function() {
-            document.body.classList.toggle('dark-mode');
-            if (document.body.classList.contains('dark-mode')) {
-                themeToggleBtn.innerText = '☀️';
-            } else {
-                themeToggleBtn.innerText = '🌙';
-            }
-        });
-
-        const loginModal = document.getElementById('loginModal');
-        const closeModal = document.querySelector('.close-modal');
-        const loginForm = document.getElementById('loginForm');
-        const reporterNationalIdInput = document.getElementById('reporterNationalId');
-        const headerLoginBtn = document.getElementById('headerLoginBtn');
-        const loginMenuBtn = document.getElementById('loginMenuBtn');
-
-        function openLogin() {
-            loginModal.style.display = 'flex';
-        }
-
-        headerLoginBtn.addEventListener('click', openLogin);
-        loginMenuBtn.addEventListener('click', openLogin);
-
-        closeModal.addEventListener('click', function() {
-            loginModal.style.display = 'none';
-        });
-
-        window.addEventListener('click', function(e) {
-            if (e.target === loginModal) {
-                loginModal.style.display = 'none';
-            }
-        });
-
-        loginForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const nid = document.getElementById('nationalIdInput').value;
-
-            if (nid.length !== 14 || isNaN(nid)) {
-                alert('عذراً، يجب أن يتكون الرقم القومي من 14 رقماً صحيحاً!');
-                return;
-            }
-
-            headerLoginBtn.innerText = `🆔 ${nid}`;
-            reporterNationalIdInput.value = nid;
-            loginModal.style.display = 'none';
-            alert(`تم تسجيل الدخول بنجاح بالرقم القومي: ${nid}`);
-            switchPage('home');
-        });
-
-        const aboutModal = document.getElementById('aboutModal');
-        const aboutAppBtn = document.getElementById('aboutAppBtn');
-        const closeAbout = document.querySelector('.close-modal-about');
-
-        aboutAppBtn.addEventListener('click', function() {
-            aboutModal.style.display = 'flex';
-        });
-
-        closeAbout.addEventListener('click', function() {
-            aboutModal.style.display = 'none';
-        });
-
-        window.addEventListener('click', function(e) {
-            if (e.target === aboutModal) {
-                aboutModal.style.display = 'none';
-            }
-        });
-
-        let totalReports = 0;
-        let pendingReports = 0;
-        let resolvedReports = 0;
-
-        function updateStats() {
-            document.getElementById('statTotal').innerText = totalReports;
-            document.getElementById('statPending').innerText = pendingReports;
-            document.getElementById('statResolved').innerText = resolvedReports;
-        }
-
-        document.getElementById('getLocationBtn').addEventListener('click', function() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    const lat = position.coords.latitude.toFixed(4);
-                    const lon = position.coords.longitude.toFixed(4);
-                    const descField = document.getElementById('issueDesc');
-                    descField.value = `الموقع الجغرافي التلقائي (خط عرض: ${lat}, خط طول: ${lon}) - حي المدينة.`;
-                    alert('تم تحديد موقعك بدقة بنجاح عبر الـ GPS! 📍');
-                }, function(error) {
-                    alert('تعسّر تحديد الموقع، يرجى كتابة العنوان يدوياً.');
-                });
-            } else {
-                alert('متصفحك لا يدعم خاصية تحديد الموقع الجغرافي.');
-            }
-        });
-
-        document.getElementById('complaintForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const nid = reporterNationalIdInput.value;
-            if (nid.length !== 14 || isNaN(nid)) {
-                alert('عذراً، يجب إدخال رقم قومي صحيح مكون من 14 رقماً!');
-                return;
-            }
-
-            const phone = document.getElementById('reporterPhone').value;
-            const type = document.getElementById('issueType').value;
-            const desc = document.getElementById('issueDesc').value;
-            const imgInput = document.getElementById('issueImg');
-
-            if (imgInput.files && imgInput.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    processReport(nid, phone, type, desc, e.target.result);
-                };
-                reader.readAsDataURL(imgInput.files[0]);
-            } else {
-                processReport(nid, phone, type, desc, null);
-            }
-        });
-
-        function processReport(nid, phone, type, desc, imgSrc) {
-            createReportCard(nid, phone, type, desc, imgSrc);
-            
-            totalReports++;
-            pendingReports++;
-            updateStats();
-
-            document.getElementById('complaintForm').reset();
-            
-            if(headerLoginBtn.innerText.startsWith('🆔')) {
-                reporterNationalIdInput.value = headerLoginBtn.innerText.replace('🆔 ', '');
-            }
-
-            alert('تم إرسال البلاغ بنجاح، وظهر فوراً في لوحة المؤشرات!');
-            document.getElementById('my-reports').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function createReportCard(nid, phone, type, desc, imgSrc) {
-            const container = document.getElementById('cardsContainer');
-            const card = document.createElement('div');
-            card.className = 'report-card';
-
-            const date = new Date().toLocaleDateString('ar-EG');
-            let imageHTML = imgSrc ? `<img src="${imgSrc}" alt="بلاغ">` : '';
-
-            card.innerHTML = `
-                ${imageHTML}
-                <div class="report-info">
-                    <h4>${type}</h4>
-                    <p><strong>العنوان:</strong> ${desc}</p>
-                    <p><small>🆔 الرقم القومي: ${nid} | 📞 ${phone}</small></p>
-                    <p><small>📅 التاريخ: ${date}</small></p>
-                    <span class="status-badge">جاري المعالجة ⏳</span>
-                </div>
-            `;
-
-            container.prepend(card);
-        }
-
-        updateStats();
-    </script>
-</body>
-</html>
+                    <div class="form-group
