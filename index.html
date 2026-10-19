@@ -6,6 +6,7 @@
     <title>بوابة حي المدينة الرقمية</title>
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="logo.png">
+    <meta name="theme-color" content="#2b3990">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -63,8 +64,8 @@
         }
 
         #splashScreen img {
-            width: 100px;
-            height: 100px;
+            width: 110px;
+            height: 110px;
             object-fit: contain;
             border-radius: 50%;
             margin-bottom: 15px;
@@ -88,6 +89,77 @@
             0% { transform: scale(1); }
             50% { transform: scale(1.06); }
             100% { transform: scale(1); }
+        }
+
+        /* بانر تثبيت التطبيق الذكي من أعلى */
+        #installBanner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #2b3990;
+            color: #ffffff;
+            padding: 12px 20px;
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            animation: slideDown 0.4s ease;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+
+        .install-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .install-info img {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            object-fit: contain;
+            background: #fff;
+        }
+
+        .install-info div h4 {
+            font-size: 0.9rem;
+            font-weight: 800;
+        }
+
+        .install-info div p {
+            font-size: 0.72rem;
+            opacity: 0.85;
+        }
+
+        .install-btns {
+            display: flex;
+            gap: 8px;
+        }
+
+        #installAppBtn {
+            background: #ffffff;
+            color: #2b3990;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 10px;
+            font-weight: 800;
+            font-size: 0.78rem;
+            cursor: pointer;
+        }
+
+        #closeInstallBtn {
+            background: transparent;
+            color: #ffffff;
+            border: none;
+            font-size: 1.1rem;
+            cursor: pointer;
+            padding: 0 4px;
         }
 
         .top-header {
@@ -556,6 +628,21 @@
 </head>
 <body>
 
+    <!-- بانر تثبيت التطبيق الذكي -->
+    <div id="installBanner">
+        <div class="install-info">
+            <img src="logo.png" alt="شعار">
+            <div>
+                <h4>بوابة حي المدينة</h4>
+                <p>ثبت التطبيق على هاتفك للوصول السريع</p>
+            </div>
+        </div>
+        <div class="install-btns">
+            <button id="installAppBtn">تثبيت 📱</button>
+            <button id="closeInstallBtn">&times;</button>
+        </div>
+    </div>
+
     <!-- شاشة التحميل الترحيبية (Splash Screen) -->
     <div id="splashScreen">
         <img src="logo.png" alt="شعار بوابة حي المدينة">
@@ -631,47 +718,4 @@
                         <h4>النجدة</h4>
                         <p>122</p>
                     </a>
-                    <a href="tel:123" class="emergency-card">
-                        <span class="em-icon">🚑</span>
-                        <h4>الإسعاف</h4>
-                        <p>123</p>
-                    </a>
-                    <a href="tel:180" class="emergency-card">
-                        <span class="em-icon">🚒</span>
-                        <h4>المطافي</h4>
-                        <p>180</p>
-                    </a>
-                </div>
-            </section>
-
-            <div class="alert-banner">
-                <div class="alert-title">📢 تنبيه هام للمواطنين</div>
-                <p>تم إطلاق خدمة الإبلاغ الرقمي الذكي لمشاكل الحي، مدعومة بتحديد الموقع الجغرافي الفوري GPS لضمان سرعة الاستجابة.</p>
-            </div>
-
-            <section>
-                <h3 class="section-title">الخدمات المقترحة</h3>
-                <div class="services-grid">
-                    <div class="service-card" onclick="switchTab('home-page'); document.getElementById('issueType').value='مشكلة في الطرق والرصف';">
-                        <div class="icon-bg">🛣️</div>
-                        <span>بلاغات الطرق</span>
-                    </div>
-                    <div class="service-card" onclick="switchTab('home-page'); document.getElementById('issueType').value='أعطال الكهرباء والإنارة';">
-                        <div class="icon-bg">⚡</div>
-                        <span>أعطال الكهرباء</span>
-                    </div>
-                    <div class="service-card" onclick="switchTab('home-page'); document.getElementById('issueType').value='أعطال شبكة المياه والصرف';">
-                        <div class="icon-bg">💧</div>
-                        <span>مياه وصرف</span>
-                    </div>
-                    <div class="service-card" onclick="switchTab('home-page'); document.getElementById('issueType').value='تراكم النظافة والمخلفات';">
-                        <div class="icon-bg">🗑️</div>
-                        <span>النظافة والمخلفات</span>
-                    </div>
-                </div>
-            </section>
-
-            <section id="report-form" class="form-section">
-                <h3 class="section-title">📝 تقديم بلاغ جديد بالـ GPS</h3>
-                <form id="complaintForm">
-                    <div class="form-group
+                    <a href="tel:
