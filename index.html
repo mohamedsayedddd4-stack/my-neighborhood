@@ -47,7 +47,7 @@
             padding-bottom: 90px;
         }
 
-        /* شاشة التحميل الترحيبية (Splash Screen) */
+        /* شاشة التحميل */
         #splashScreen {
             position: fixed;
             top: 0;
@@ -91,7 +91,7 @@
             100% { transform: scale(1); }
         }
 
-        /* بانر تثبيت التطبيق الذكي من أعلى */
+        /* بانر التثبيت */
         #installBanner {
             position: fixed;
             top: 0;
@@ -622,7 +622,6 @@
 </head>
 <body>
 
-    <!-- بانر تثبيت التطبيق الذكي -->
     <div id="installBanner">
         <div class="install-info">
             <img src="logo.png" alt="شعار">
@@ -637,14 +636,12 @@
         </div>
     </div>
 
-    <!-- شاشة التحميل الترحيبية (Splash Screen) -->
     <div id="splashScreen">
         <img src="logo.png" alt="شعار بوابة حي المدينة">
         <h2>بوابة حي المدينة الرقمية</h2>
         <p>جاري تحميل النظام الرقمي للحي...</p>
     </div>
 
-    <!-- الهيدر العلوي باللوجو والاسم الجديد -->
     <header class="top-header">
         <div class="logo-area">
             <img src="logo.png" alt="شعار بوابة حي المدينة">
@@ -656,7 +653,6 @@
         </div>
     </header>
 
-    <!-- مودال تسجيل الدخول -->
     <div id="loginModal" class="modal-overlay" style="display: none;">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
@@ -672,7 +668,6 @@
         </div>
     </div>
 
-    <!-- مودال عن التطبيق -->
     <div id="aboutModal" class="modal-overlay" style="display: none;">
         <div class="modal-content">
             <span class="close-modal-about">&times;</span>
@@ -682,8 +677,6 @@
     </div>
 
     <main class="container">
-        
-        <!-- صفحة الرئيسية -->
         <section id="home-page" class="page-section active-page">
             <div class="search-box">
                 <input type="text" placeholder="🔍 نساعدك ازاي في حي المدينة؟">
@@ -716,4 +709,13 @@
                         <span class="em-icon">🚑</span>
                         <h4>الإسعاف</h4>
                         <p>123</p>
-                    <
+                    </a>
+                    <a href="tel:180" class="emergency-card">
+                        <span class="em-icon">🚒</span>
+                        <h4>المطافي</h4>
+                        <p>180</p>
+                    </a>
+                </div>
+            </section>
+
+            <div 
