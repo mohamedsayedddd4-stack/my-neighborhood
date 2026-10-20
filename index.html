@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوابة حي المدينة الرقمية</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="logo.png">
+    <meta name="theme-color" content="#2b3990">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="top-header">
+        <div class="logo-area">
+            <img src="logo.png" alt="شعار البوابة" class="header-logo">
+            <h2>بوابة حي المدينة الرقمية</h2>
+        </div>
+        <div class="header-actions">
+            <button id="themeToggle" class="btn-theme" title="تغيير المظهر">🌙</button>
+            <button class="btn-login" id="headerLoginBtn">تسجيل الدخول</button>
+        </div>
+    </header>
+
+    <div id="loginModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>🔐 الدخول بالرقم القومي</h3>
+            <p>يرجى إدخال الرقم القومي المكون من 14 رقماً للتحقق الأمني</p>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>الرقم القومي (14 رقم)</label>
+                    <input type="text" id="nationalIdInput" maxlength="14" placeholder="أدخل الرقم القومي الخاص بك" required>
+                </div>
+                <button type="submit" class="btn-primary">تأكيد الدخول 🆔</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="aboutModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <span class="close-modal-about">&times;</span>
+            <h3>ℹ️ عن بوابة حي المدينة الرقمية</h3>
+            <p style="margin-top: 10px; line-height: 1.6;">منصة رقمية ذكية تهدف لخدمة المواطنين في مختلف المحافظات والأحياء، وتتيح الإبلاغ الفوري عن أعطال المرافق والخدمات العامة بدعم تقنية GPS.</p>
+        </div>
+    </div>
+
+    <main class="container">
+        
+        <!-- الرئيسية -->
+        <section id="home-page" class="page-section active-page">
+            <div class="search-box">
+                <input type="text" placeholder="🔍 نساعدك ازاي في حي المدينة؟">
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3 id="statTotal">0</h3>
+                    <p>إجمالي البلاغات</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="statPending">0</h3>
+                    <p>قيد المعالجة</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="statResolved">0</h3>
+                    <p>تم الحل</p>
+                </div>
+            </div>
+
+            <div class="alert-banner">
+                <div class="alert-title">📢 تنبيه هام للمواطنين</div>
+                <p>تم إطلاق خدمة الإبلاغ الرقمي الذكي لمشاكل الحي، مدعومة بتحديد الموقع الجغرافي الفوري GPS لضمان سرعة الاستجابة.</p>
+            </div>
+
+            <section id="report-form" class="form-section">
+                <h3 class="section-title">📝 تقديم بلاغ جديد بالـ GPS</h3>
+                <form id="complaintForm">
+                    <div class="form-group">
+                        <label>المحافظة</label>
+                        <select id="governorateSelect" required>
+                            <option value="">اختر المحافظة...</option>
+                            <option value="القاهرة">القاهرة</option>
+                            <option value="الجيزة">الجيزة</option>
+                            <option value="الإسكندرية">الإسكندرية</option>
+                            <option value="القليوبية">القليوبية</option>
+                            <option value="الشرقية">الشرقية</option>
+                            <option value="الدقهلية">الدقهلية</option>
+                            <option value="الغربية">الغربية</option>
+                            <option value="المنوفية">المنوفية</option>
+                            <option value="البحيرة">البحيرة</option>
+                            <option value="كفر الشيخ">كفر الشيخ</option>
+                            <option value="الفيوم">الفيوم</option>
+                            <option value="بني سويف">بني سويف</option>
+                            <option value="المنيا">المنيا</option>
+                            <option value="أسيوط">أسيوط</option>
+                            <option value="سوهاج">سوهاج</option>
+                            <option value="قنا">قنا</option>
+                            <option value="أسوان">أسوان</option>
+                            <option value="الأقصر">الأقصر</option>
+                            <option value="البحر الأحمر">البحر الأحمر</option>
+                            <option value="جنوب سيناء">جنوب سيناء</option>
+                            <option value="شمال سيناء">شمال سيناء</option>
+                            <option value="السويس">السويس</option>
+                            <option value="الإسماعيلية">الإسماعيلية</option>
+                            <option value="بورسعيد">بورسعيد</option>
+                            <option value="مطروح">مطروح</option>
+                            <option value="الوادي الجديد">الوادي الجديد</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>المدينة / المركز / الحي</label>
+                        <input type="text" id="cityNameInput" placeholder="أدخل اسم المدينة أو الحي" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>الرقم القومي للمواطن</label>
+                        <input type="text" id="reporterNationalId" maxlength="14" placeholder="أدخل الرقم القومي (14 رقماً)" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>رقم الهاتف</label>
+                        <input type="tel" id="reporterPhone" placeholder="أدخل رقم الهاتف للتواصل" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>نوع المشكلة</label>
+                        <select id="issueType" required>
+                            <option value="">اختر نوع الخدمة...</option>
+                            <option value="مشكلة في الطرق والرصف">🛣️ مشكلة في الطرق والرصف</option>
+                            <option value="أعطال الكهرباء والإنارة">⚡ أعطال الكهرباء والإنارة</option>
+                            <option value="أعطال شبكة المياه والصرف">💧 أعطال شبكة المياه والصرف</option>
+                            <option value="تراكم النظافة والمخلفات">🗑️ تراكم النظافة والمخلفات</option>
+                            <option value="مشكلة أخرى عامة">⚠️ مشكلة أخرى عامة</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>وصف المشكلة والموقع بالتفصيل</label>
+                        <textarea id="issueDesc" rows="3" placeholder="اكتب العنوان بالتفصيل أو اضغط زر تحديد الموقع..." required></textarea>
+                        <button type="button" id="getLocationBtn" class="btn-geo">📍 تحديد موقعي الحالي تلقائياً (GPS)</button>
+                    </div>
+
+                    <div class="form-group">
+                        <label>إرفاق صورة المشكلة 📸 (اختياري)</label>
+                        <input type="file" id="issueImg" accept="image/*">
+                    </div>
+
+                    <button type="submit" class="btn-primary">إرسال البلاغ الذكي 🚀</button>
+                </form>
+            </section>
+        </section>
+
+        <!-- بلاغاتي -->
+        <section id="reports-page" class="page-section">
+            <h3 class="section-title">📋 بلاغاتي المسجلة</h3>
+            <div id="cardsContainer" class="reports-grid">
+                <p style="text-align: center; color: var(--text-sub); padding: 20px;">لا توجد بلاغات مسجلة حتى الآن.</p>
+            </div>
+        </section>
+
+        <!-- دليل أرقام الطوارئ الشامل -->
+        <section id="emergency-page" class="page-section">
+            <div class="emergency-header-box">
+                <h2>🚨 دليل أرقام الطوارئ</h2>
+            </div>
+            
+            <div class="search-box">
+                <input type="text" placeholder="🔍 ابحث عن الخدمة (مثلاً: حريق، غاز، إسعاف)...">
+            </div>
+
+            <!-- طوارئ الدرجة الأولى -->
+            <div class="em-category-card">
+                <div class="em-cat-title">
+                    <span>⚡ طوارئ الدرجة الأولى</span>
+                    <span class="share-icon">🔗</span>
+                </div>
+                
+                <a href="tel:122" class="em-item-row">
+                    <div class="em-icon-box red-bg">📞</div>
+                    <div class="em-info">
+                        <h4>النجدة / الشرطة</h4>
+                        <p>بلاغات الحوادث والجرائم العاجلة</p>
+                    </div>
+                    <span class="em-num red-text">122</span>
+                </a>
+
+                <a href="tel:123" class="em-item-row">
+                    <div class="em-icon-box red-bg">📞</div>
+                    <div class="em-info">
+                        <h4>الإسعاف المصري</h4>
+                        <p>الحالات الطبية والإنقاذ السريع</p>
+                    </div>
+                    <span class="em-num red-text">123</span>
+                </a>
+
+                <a href="tel:180" class="em-item-row">
+                    <div class="em-icon-box red-bg">📞</div>
+                    <div class="em-info">
+                        <h4>المطافي (الحماية المدنية)</h4>
+                        <p>حرائق، إنقاذ، ومواد خطرة</p>
+                    </div>
+                    <span class="em-num red-text">180</span>
+                </a>
+            </div>
+
+            <!-- خدمات الصحة العامة -->
+            <div class="em-category-card">
+                <div class="em-cat-title">
+                    <span>🏥 خدمات الصحة العامة</span>
+                    <span class="share-icon">🔗</span>
+                </div>
+                
+                <a href="tel:137" class="em-item-row">
+                    <div class="em-icon-box green-bg">📞</div>
+                    <div class="em-info">
+                        <h4>طوارئ وزارة الصحة</h4>
+                        <p>توفير أسرة الرعاية والعمليات</p>
+                    </div>
+                    <span class="em-num green-text">137</span>
+                </a>
+
+                <a href="tel:105" class="em-item-row">
+                    <div class="em-icon-box green-bg">📞</div>
+                    <div class="em-info">
+                        <h4>الطب الوقائي</h4>
+                        <p>الأوبئة والأمراض المعدية</p>
+                    </div>
+                    <span class="em-num green-text">105</span>
+                </a>
+
+                <a href="tel:16023" class="em-item-row">
+                    <div class="em-icon-box green-bg">📞</div>
+                    <div class="em-info">
+                        <h4>علاج الإدمان والتعاطي</h4>
+                        <p>استشارات وعلاج بالمجان</p>
+                    </div>
+                    <span class="em-num green-text">16023</span>
+                </a>
+            </div>
+
+            <!-- الأمن والشرطة المتخصصة -->
+            <div class="em-category-card">
+                <div class="em-cat-title">
+                    <span>🛡️ الأمن والشرطة المتخصصة</span>
+                    <span class="share-icon">🔗</span>
+                </div>
+
+                <a href="tel:115" class="em-item-row">
+                    <div class="em-icon-box blue-bg">📞</div>
+                    <div class="em-info">
+                        <h4>الأمن العام (شكاوى الجرائم)</h4>
+                        <p>الإبلاغ عن التهديدات الأمنية</p>
+                    </div>
+                    <span class="em-num blue-text">115</span>
+                </a>
+
+                <a href="tel:15008" class="em-item-row">
+                    <div class="em-icon-box blue-bg">📞</div>
+                    <div class="em-info">
+                        <h4>مباحث الإنترنت</h4>
+                        <p>الابتزاز والجرائم الإلكترونية</p>
+                    </div>
+                    <span class="em-num blue-text">15008</span>
+                </a>
+
+                <a href="tel:126" class="em-item-row">
+                    <div class="em-icon-box blue-bg">📞</div>
+                    <div class="em-info">
+                        <h4>شرطة السياحة</h4>
+                        <p>خدمة الزوار والسياح</p>
+                    </div>
+                    <span class="em-num blue-text">126</span>
+                </a>
+
+                <a href="tel:128" class="em-item-row">
+                    <div class="em-icon-box blue-bg">📞</div>
+                    <div class="em-info">
+                        <h4>شرطة المرور</h4>
+                        <p>بلاغات الطرق والزحام</p>
+                    </div>
+                    <span class="em-num blue-text">128</span>
+                </a>
+            </div>
+
+            <!-- طوارئ المرافق الحيوية -->
+            <div class="em-category-card">
+                <div class="em-cat-title">
+                    <span>🔧 طوارئ المرافق الحيوية</span>
+                    <span class="share-icon">🔗</span>
+                </div>
+
+                <a href="tel:121" class="em-item-row">
+                    <div class="em-icon-box orange-bg">📞</div>
+                    <div class="em-info">
+                        <h4>طوارئ الكهرباء</h4>
+                        <p>أعطال الكابلات والخطوط</p>
+                    </div>
+                    <span class="em-num orange-text">121</span>
+                </a>
+
+                <a href="tel:125" class="em-item-row">
+                    <div class="em-icon-box orange-bg">📞</div>
+                    <div class="em-info">
+                        <h4>مياه الشرب</h4>
+                        <p>كسر المواسير وانقطاع المياه</p>
+                    </div>
+                    <span class="em-num orange-text">125</span>
+                </a>
+
+                <a href="tel:175" class="em-item-row">
+                    <div class="em-icon-box orange-bg">📞</div>
+                    <div class="em-info">
+                        <h4>الصرف الصحي</h4>
+                        <p>شكاوى انسداد الشبكات</p>
+                    </div>
+                    <span class="em-num orange-text">175</span>
+                </a>
+
+                <a href="tel:129" class="em-item-row">
+                    <div class="em-icon-box orange-bg">📞</div>
+                    <div class="em-info">
+                        <h4>الغاز الطبيعي</h4>
+                        <p>تسريبات الغاز - اتصل فوراً</p>
+                    </div>
+                    <span class="em-num orange-text">129</span>
+                </a>
+            </div>
+
+            <!-- خدمات النقل والمواصلات -->
+            <div class="em-category-card">
+                <div class="em-cat-title">
+                    <span>🚆 خدمات النقل والمواصلات</span>
+                    <span class="share-icon">🔗</span>
+                </div>
+
+                <a href="tel:15047" class="em-item-row">
+                    <div class="em-icon-box teal-bg">📞</div>
+                    <div class="em-info">
+                        <h4>سكك حديد مصر</h4>
+                        <p>استعلامات وشكاوى القطارات</p>
+                    </div>
+                    <span class="em-num teal-text">15047</span>
+                </a>
+
+                <a href="tel:16048" class="em-item-row">
+                    <div class="em-icon-box teal-bg">📞</div>
+                    <div class="em-info">
+                        <h4>مترو الأنفاق</h4>
+                        <p>الخط الساخن للمترو</p>
+                    </div>
+                    <span class="em-num teal-text">16048</span>
+                </a>
+
+                <a href="tel:01221110000" class="em-item-row">
+                    <div class="em-icon-box teal-bg">📞</div>
+                    <div class="em-info">
+                        <h4>إغاثة الطرق السريعة</h4>
+                        <p>أعطال وحوادث الطرق السريعة</p>
+                    </div>
+                    <span class="em-num teal-text">01221110000</span>
+                </a>
+            </div>
+
+            <!-- الحماية والخطوط الساخنة -->
+            <div class="em-category-card">
+                <div class="em-cat-title">
+                    <span>🤝 الحماية والخطوط الساخنة</span>
+                    <span class="share-icon">🔗</span>
+                </div>
+
+                <a href="tel:16000" class="em-item-row">
+                    <div class="em-icon-box dark-bg">📞</div>
+                    <div class="em-info">
+                        <h4>نجدة الطفل</h4>
+                        <p>حماية الأطفال من العنف</p>
+                    </div>
+                    <span class="em-num dark-text">16000</span>
+                </a>
+
+                <a href="tel:16439" class="em-item-row">
+                    <div class="em-icon-box dark-bg">📞</div>
+                    <div class="em-info">
+                        <h4>إنقاذ المشردين</h4>
+                        <p>التدخل السريع للحالات الإنسانية</p>
+                    </div>
+                    <span class="em-num dark-text">16439</span>
+                </a>
+
+                <a href="tel:16528" class="em-item-row">
+                    <div class="em-icon-box dark-bg">📞</div>
+                    <div class="em-info">
+                        <h4>الشكاوى الحكومية</h4>
+                        <p>بوابة مجلس الوزراء الموحدة</p>
+                    </div>
+                    <span class="em-num dark-text">16528</span>
+                </a>
+
+                <a href="tel:19588" class="em-item-row">
+                    <div class="em-icon-box dark-bg">📞</div>
+                    <div class="em-info">
+                        <h4>حماية المستهلك</h4>
+                        <p>بلاغات الغش التجاري والأسباب</p>
+                    </div>
+                    <span class="em-num dark-text">19588</span>
+                </a>
+            </div>
+
+        </section>
+
+        <!-- الخدمات -->
+        <section id="services-page" class="page-section">
+            <h3 class="section-title">⚡ الخدمات الرقمية</h3>
+            <div class="services-grid">
+                <div class="service-card" onclick="switchTab('home-page')">
+                    <div class="icon-bg">📝</div>
+                    <span>تقديم بلاغ جديد</span>
+                </div>
+                <div class="service-card" onclick="switchTab('reports-page')">
+                    <div class="icon-bg">📋</div>
+                    <span>متابعة البلاغات</span>
+                </div>
+                <div class="service-card" onclick="switchTab('emergency-page')">
+                    <div class="icon-bg">🚨</div>
+                    <span>دليل الطوارئ</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- المزيد -->
+        <section id="more-page" class="page-section">
+            <div class="more-banner">
+                <h3>بوابة حي المدينة الرقمية</h3>
+                <p>منصة خدمية متكاملة لخدمة أهالي الأحياء والمحافظات وتسهيل التواصل مع الأجهزة التنفيذية.</p>
+            </div>
+            <div class="more-menu-card" onclick="document.getElementById('aboutModal').style.display='flex'">
+                <span>ℹ️ عن التطبيق</span>
+                <span>›</span>
+            </div>
+        </section>
+    </main>
+
+    <nav class="bottom-nav">
+        <a class="nav-item active" onclick="switchTab('home-page')">
+            <span>🏠</span>
+            <small>الرئيسية</small>
+        </a>
+        <a class="nav-item" onclick="switchTab('reports-page')">
+            <span>📋</span>
+            <small>بلاغاتي</small>
+        </a>
+        <a class="nav-item" onclick="switchTab('emergency-page')">
+            <span>🚨</span>
+            <small>الطوارئ</small>
+        </a>
+        <a class="nav-item" onclick="switchTab('services-page')">
+            <span>⚡</span>
+            <small>الخدمات</small>
+        </a>
+        <a class="nav-item" onclick="switchTab('more-page')">
+            <span>⚙️</span>
+            <small>المزيد</small>
+        </a>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html>
