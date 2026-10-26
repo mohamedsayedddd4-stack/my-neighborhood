@@ -21,11 +21,18 @@ function switchTab(tabId) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. تفعيل زرار الوضع الليلي (Dark Mode)
+        // 1. تفعيل زرار الوضع الليلي (Dark Mode)
     const themeToggle = document.getElementById('themeToggle');
+
+    // تشغيل الوضع الأسود تلقائياً عند فتح الموقع
+    document.body.classList.add('dark-mode');
+
     if (themeToggle) {
+        themeToggle.innerText = '☀️';
+
         themeToggle.addEventListener('click', () => {
             document.body.classList.toggle('dark-mode');
+
             if (document.body.classList.contains('dark-mode')) {
                 themeToggle.innerText = '☀️';
             } else {
@@ -33,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+    
 
     // 2. تفعيل نافذة تسجيل الدخول
     const headerLoginBtn = document.getElementById('headerLoginBtn');
