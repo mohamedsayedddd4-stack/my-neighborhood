@@ -517,3 +517,14 @@ body {
     color: #ea580c;
     margin-top: 8px;
 }
+/* إخفاء الهيدر عند النزول وإظهاره عند الصعود */
+.top-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+}
+
+.top-header.hide-header {
+    transform: translateY(-100%);
+}
