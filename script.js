@@ -195,3 +195,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     renderReports();
 });
+let lastScrollTop = 0;
+const header = document.querySelector('.top-header');
+
+window.addEventListener('scroll', function () {
+    const currentScroll = window.pageYOffset;
+
+    if (currentScroll > lastScrollTop && currentScroll > 100) {
+        header.classList.add('hide-header');
+    } else {
+        header.classList.remove('hide-header');
+    }
+
+    lastScrollTop = Math.max(currentScroll, 0);
+});
